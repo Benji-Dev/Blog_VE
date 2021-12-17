@@ -13,11 +13,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 #[Route('/article')]
-#[IsGranted("ROLE_ADMIN")]
+#[IsGranted("ROLE_USER")]
 class ArticleController extends AbstractController
 {
     #[Route('/', name: 'article_index', methods: ['GET']),
-    IsGranted("ROLE_ADMIN")
+    IsGranted("ROLE_USER")
     ]
 
     public function index(ArticleRepository $articleRepository): Response

@@ -2,21 +2,41 @@
 
 namespace App\Form;
 
+use App\Entity\Author;
+use App\Entity\Category;
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+
 
 class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+        ->add('title', TextType::class, [
+            'label' => 'Titre',
+            'required' => true
+        ])
             ->add('description')
             ->add('date')
-            ->add('author')
-            ->add('category')
+            ->add('author', EntityType::class, [
+                'label' => 'Auteur',
+                'class' => Author::class,
+                'choice_label' => 'name',
+                'multiple' => false,
+            ])
+            ->add('category', EntityType::class, [
+                'label' => 'Categories',
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'mapped' => false,
+            ])
         ;
     }
 
